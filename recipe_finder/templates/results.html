@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results - Recipe Finder{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-badge">Results</span>
+        <h1 class="page-title">Recipes Matching Your Ingredients</h1>
+        <p class="page-subtitle">
+            {% if user_ingredients %}
+            You have:
+            {% for ing in user_ingredients %}
+            <span class="ingredient-chip">{{ ing|title }}</span>
+            {% endfor %}
+            {% endif %}
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        {% if error %}
+        <!-- Error Message -->
+        <div class="error-message">
+            <span class="error-icon">⚠️</span>
+            <p>{{ error }}</p>
+            <a href="{{ url_for('find_recipes') }}" class="btn btn-primary">Try Again</a>
+        </div>
+        {% elif result_count == 0 %}
+        <!-- No Results -->
+        <div class="no-results">
+            <span class="no-results-icon">🔍</span>
+            <h2>No recipes found</h2>
+            <p>No recipes match your ingredients. Try adding different ingredients or removing some.</p>
+            <a href="{{ url_for('find_recipes') }}" class="btn btn-primary">Search Again</a>
+        </div>
+        {% else %}
+        <!-- Results Count & Sort -->
+        <div class="results-header">
+            <p class="results-count">{{ result_count }} recipe{{ 's' if result_count != 1 else '' }} found</p>
+            <form action="{{ url_for('search') }}" method="GET" class="sort-form">
+                <input type="hidden" name="ingredients" value="{{ user_ingredients|join(',') }}">
+                <label for="sortSelect">Sort by:</label>
+                <select name="sort" id="sortSelect" class="form-select-sm" onchange="this.form.submit()">
+                    <option value="Best Match" {% if sort_by == 'Best Match' %}selected{% endif %}>Best Match</option>
+                    <option value="Quickest" {% if sort_by == 'Quickest' %}selected{% endif %}>Quickest</option>
+                    <option value="Easiest" {% if sort_by == 'Easiest' %}selected{% endif %}>Easiest</option>
+                </select>
+            </form>
+        </div>
+
+        <!-- Results Grid -->
+        <div class="recipe-grid results-grid">
+            {% for recipe in results %}
+            <div class="recipe-card result-card">
+                <div class="recipe-card-image">
+                    <img src="{{ recipe.image }}" alt="{{ recipe.name }}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=800&q=80'">
+                    <button class="favorite-btn" data-recipe-id="{{ recipe.id }}" aria-label="Add to favorites">
+                        <span class="heart">♡</span>
+                    </button>
+                    <span class="recipe-badge">{{ recipe.category }}</span>
+                    <div class="match-badge" style="--match: {{ recipe.match_percentage }}%">
+                        <span class="match-text">{{ recipe.match_percentage }}% match</span>
+                    </div>
+                </div>
+                <div class="recipe-card-body">
+                    <h3 class="recipe-card-title">{{ recipe.name }}</h3>
+                    <p class="recipe-card-desc">{{ recipe.description[:80] }}...</p>
+                    <div class="recipe-card-meta">
+                        <span class="meta-item">⏱️ {{ recipe.total_time }} min</span>
+                        <span class="meta-item">📊 {{ recipe.difficulty }}</span>
+                    </div>
+                    {% if recipe.matching %}
+                    <div class="match-info">
+                        <div class="match-row">
+                            <span class="match-label">You have:</span>
+                            <span class="match-items">
+                                {% for ing in recipe.matching %}
+                                <span class="match-ing have">{{ ing }}</span>
+                                {% endfor %}
+                            </span>
+                        </div>
+                        {% if recipe.missing %}
+                        <div class="match-row">
+                            <span class="match-label">Missing:</span>
+                            <span class="match-items">
+                                {% for ing in recipe.missing %}
+                                <span class="match-ing missing">{{ ing }}</span>
+                                {% endfor %}
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    <a href="{{ url_for('recipe_detail', recipe_id=recipe.id, ingredients=user_ingredients|join(',')) }}" class="btn btn-primary btn-sm btn-block">View Recipe</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

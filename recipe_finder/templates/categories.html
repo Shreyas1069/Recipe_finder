@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Categories - Recipe Finder{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-badge">Browse</span>
+        <h1 class="page-title">Recipe Categories</h1>
+        <p class="page-subtitle">Explore recipes by category</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="categories-grid">
+            {% for category in categories %}
+            <a href="{{ url_for('category_detail', category_name=category) }}" class="category-card">
+                <div class="category-icon">
+                    {% if category == 'Breakfast' %}🍳
+                    {% elif category == 'Lunch' %}🥗
+                    {% elif category == 'Dinner' %}🍽️
+                    {% elif category == 'Snacks' %}🍿
+                    {% elif category == 'Desserts' %}🍰
+                    {% elif category == 'Vegetarian' %}🥬
+                    {% elif category == 'Poultry & Meat' %}🍗
+                    {% elif category == 'Quick Meals' %}⚡
+                    {% else %}🍳{% endif %}
+                </div>
+                <h3 class="category-name">{{ category }}</h3>
+                <p class="category-count">{{ category_counts.get(category, 0) }} recipes</p>
+                <span class="category-arrow">→</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

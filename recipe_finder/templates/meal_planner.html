@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Meal Planner - Recipe Finder{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-badge">Plan</span>
+        <h1 class="page-title">Meal Planner</h1>
+        <p class="page-subtitle">Plan your meals for the week</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="planner-layout">
+            <div class="planner-grid">
+                {% for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] %}
+                <div class="planner-day">
+                    <h3 class="planner-day-title">{{ day }}</h3>
+                    {% for meal_type in ['Breakfast', 'Lunch', 'Dinner'] %}
+                    <div class="planner-slot" data-day="{{ day }}" data-meal="{{ meal_type }}">
+                        <span class="slot-label">{{ meal_type }}</span>
+                        <div class="slot-content" id="slot-{{ day }}-{{ meal_type }}">
+                            <span class="slot-empty">+ Add</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="planner-actions">
+                <button type="button" class="btn btn-outline" id="clearPlanner">Clear Week</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recipe Picker Modal -->
+<div class="modal" id="recipePickerModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Choose a Recipe</h3>
+            <button class="modal-close" id="modalClose">&times;</button>
+        </div>
+        <div class="modal-body">
+            <input type="text" id="modalSearch" class="form-input" placeholder="Search recipes...">
+            <div class="modal-recipes" id="modalRecipes"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

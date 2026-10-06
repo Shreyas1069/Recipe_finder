@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}About - Recipe Finder{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-badge">About</span>
+        <h1 class="page-title">About Recipe Finder</h1>
+        <p class="page-subtitle">Your smart kitchen companion</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="about-content">
+            <!-- What is Recipe Finder -->
+            <div class="about-card">
+                <h2>What is Recipe Finder?</h2>
+                <p>Recipe Finder is a web application that helps you discover delicious recipes based on the ingredients you already have at home. Simply enter your ingredients, and the app finds the best matching recipes for you, sorted by how well they match what is in your kitchen.</p>
+            </div>
+
+            <!-- How It Works -->
+            <div class="about-card">
+                <h2>How Does It Work?</h2>
+                <ol class="about-steps">
+                    <li><strong>Add Ingredients:</strong> Type the ingredients you have in your kitchen.</li>
+                    <li><strong>Smart Search:</strong> The app processes your ingredients and searches through the recipe database.</li>
+                    <li><strong>Get Results:</strong> Recipes are sorted by match percentage, showing you exactly what you can make.</li>
+                    <li><strong>Cook & Enjoy:</strong> Follow the step-by-step instructions and enjoy your meal.</li>
+                </ol>
+            </div>
+
+            <!-- How Matching Works -->
+            <div class="about-card">
+                <h2>How Ingredient Matching Works</h2>
+                <p>The matching algorithm follows these steps:</p>
+                <ol class="about-steps">
+                    <li><strong>Normalize:</strong> Convert all ingredients to lowercase and remove extra spaces.</li>
+                    <li><strong>Compare:</strong> Check each recipe's ingredients against the user's ingredients.</li>
+                    <li><strong>Count Matches:</strong> Count how many ingredients match.</li>
+                    <li><strong>Calculate Percentage:</strong> Match % = (matching ingredients / total recipe ingredients) x 100</li>
+                    <li><strong>Sort Results:</strong> Recipes are sorted by highest match percentage first.</li>
+                </ol>
+                <div class="example-box">
+                    <h4>Example:</h4>
+                    <p><strong>User has:</strong> egg, tomato, bread</p>
+                    <p><strong>Recipe needs:</strong> egg, bread, cheese, tomato</p>
+                    <p><strong>Matching:</strong> egg, bread, tomato (3 out of 4)</p>
+                    <p><strong>Missing:</strong> cheese</p>
+                    <p><strong>Match Percentage:</strong> 75%</p>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="about-card">
+                <h2>Features</h2>
+                <div class="concepts-grid">
+                    <div class="concept-item">
+                        <span class="concept-icon">🔍</span>
+                        <div>
+                            <strong>Smart Ingredient Search</strong>
+                            <p>Enter what you have and find recipes you can make right now.</p>
+                        </div>
+                    </div>
+                    <div class="concept-item">
+                        <span class="concept-icon">📊</span>
+                        <div>
+                            <strong>Match Percentage</strong>
+                            <p>See exactly how well each recipe matches your available ingredients.</p>
+                        </div>
+                    </div>
+                    <div class="concept-item">
+                        <span class="concept-icon">📂</span>
+                        <div>
+                            <strong>Categories</strong>
+                            <p>Browse recipes by meal type, from breakfast to desserts.</p>
+                        </div>
+                    </div>
+                    <div class="concept-item">
+                        <span class="concept-icon">❤️</span>
+                        <div>
+                            <strong>Favorites</strong>
+                            <p>Save your favorite recipes for quick access anytime.</p>
+                        </div>
+                    </div>
+                    <div class="concept-item">
+                        <span class="concept-icon">🥘</span>
+                        <div>
+                            <strong>Pantry Management</strong>
+                            <p>Keep track of ingredients you have at home.</p>
+                        </div>
+                    </div>
+                    <div class="concept-item">
+                        <span class="concept-icon">📅</span>
+                        <div>
+                            <strong>Meal Planner</strong>
+                            <p>Plan your meals for the entire week.</p>
+                        </div>
+                    </div>
+                    <div class="concept-item">
+                        <span class="concept-icon">🎲</span>
+                        <div>
+                            <strong>Surprise Me</strong>
+                            <p>Get a random recipe suggestion when you cannot decide.</p>
+                        </div>
+                    </div>
+                    <div class="concept-item">
+                        <span class="concept-icon">🌙</span>
+                        <div>
+                            <strong>Dark Mode</strong>
+                            <p>Comfortable viewing in low-light environments.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technologies -->
+            <div class="about-card">
+                <h2>Technologies</h2>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <span class="tech-name">Flask</span>
+                        <span class="tech-desc">Web framework</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-name">Jinja2</span>
+                        <span class="tech-desc">Template engine</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-name">HTML5</span>
+                        <span class="tech-desc">Semantic markup</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-name">CSS3</span>
+                        <span class="tech-desc">Modern styling</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-name">JavaScript</span>
+                        <span class="tech-desc">Frontend interactions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

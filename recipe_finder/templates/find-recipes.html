@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Find Recipes - Recipe Finder{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-badge">Search</span>
+        <h1 class="page-title">Find Recipes</h1>
+        <p class="page-subtitle">Enter your ingredients and find the perfect recipes for you</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="search-layout">
+            <!-- Search Form -->
+            <div class="search-panel">
+                <form action="{{ url_for('search') }}" method="POST" class="search-form" id="findSearchForm">
+                    <div class="form-group">
+                        <label class="form-label">Your Ingredients</label>
+                        <div class="ingredient-input-wrapper large">
+                            <div class="ingredient-tags" id="findTags"></div>
+                            <input type="text" id="findInput" class="ingredient-input" placeholder="Type an ingredient and press Enter..." autocomplete="off">
+                            <input type="hidden" name="ingredients" id="findHiddenInput" value="">
+                        </div>
+                        <p class="form-hint">Press Enter or comma to add an ingredient</p>
+                    </div>
+
+                    <div class="quick-add">
+                        <span class="quick-add-label">Quick add:</span>
+                        <div class="quick-add-tags">
+                            {% for ingredient in common_ingredients %}
+                            <button type="button" class="quick-tag" data-ingredient="{{ ingredient }}">{{ ingredient|title }}</button>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                        <span class="btn-icon">🔍</span>
+                        Find Recipes
+                    </button>
+                </form>
+            </div>
+
+            <!-- Filters Panel -->
+            <div class="filters-panel">
+                <h3 class="filters-title">Filters</h3>
+                <form action="{{ url_for('search') }}" method="GET" class="filters-form" id="filterForm">
+                    <input type="hidden" name="ingredients" id="filterHiddenIngredients" value="">
+
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select name="category" class="form-select">
+                            <option value="">All Categories</option>
+                            {% for cat in categories %}
+                            <option value="{{ cat }}">{{ cat }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Difficulty</label>
+                        <select name="difficulty" class="form-select">
+                            <option value="">All Levels</option>
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Max Cooking Time</label>
+                        <select name="max_time" class="form-select">
+                            <option value="">Any Time</option>
+                            <option value="15">15 minutes or less</option>
+                            <option value="30">30 minutes or less</option>
+                            <option value="45">45 minutes or less</option>
+                            <option value="60">1 hour or less</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="vegetarian" value="true">
+                            <span>Vegetarian Only</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-outline btn-block">Apply Filters</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

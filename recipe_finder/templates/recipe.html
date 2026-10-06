@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}{{ recipe.name }} - Recipe Finder{% endblock %}
+
+{% block content %}
+<section class="recipe-detail">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb">
+            <a href="{{ url_for('home') }}">Home</a>
+            <span class="breadcrumb-sep">/</span>
+            <a href="{{ url_for('category_detail', category_name=recipe.category) }}">{{ recipe.category }}</a>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">{{ recipe.name }}</span>
+        </nav>
+
+        <!-- Recipe Hero -->
+        <div class="recipe-hero">
+            <div class="recipe-hero-image">
+                <img src="{{ recipe.image }}" alt="{{ recipe.name }}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=800&q=80'">
+                <button class="favorite-btn large" data-recipe-id="{{ recipe.id }}" aria-label="Add to favorites">
+                    <span class="heart">♡</span>
+                </button>
+            </div>
+            <div class="recipe-hero-content">
+                <span class="recipe-badge">{{ recipe.category }}</span>
+                <h1 class="recipe-title">{{ recipe.name }}</h1>
+                <p class="recipe-desc">{{ recipe.description }}</p>
+
+                <div class="recipe-meta-bar">
+                    <div class="meta-box">
+                        <span class="meta-icon">⏱️</span>
+                        <span class="meta-value">{{ recipe.prep_time }} min</span>
+                        <span class="meta-label">Prep</span>
+                    </div>
+                    <div class="meta-box">
+                        <span class="meta-icon">🔥</span>
+                        <span class="meta-value">{{ recipe.cook_time }} min</span>
+                        <span class="meta-label">Cook</span>
+                    </div>
+                    <div class="meta-box">
+                        <span class="meta-icon">⏰</span>
+                        <span class="meta-value">{{ recipe.total_time }} min</span>
+                        <span class="meta-label">Total</span>
+                    </div>
+                    <div class="meta-box">
+                        <span class="meta-icon">📊</span>
+                        <span class="meta-value">{{ recipe.difficulty }}</span>
+                        <span class="meta-label">Level</span>
+                    </div>
+                    <div class="meta-box">
+                        <span class="meta-icon">🍽️</span>
+                        <span class="meta-value">{{ recipe.servings }}</span>
+                        <span class="meta-label">Servings</span>
+                    </div>
+                </div>
+
+                {% if user_ingredients %}
+                <div class="match-summary">
+                    <div class="match-percentage">
+                        <div class="match-circle" style="--match: {{ match_percentage }}%">
+                            <span>{{ match_percentage }}%</span>
+                        </div>
+                        <span class="match-label">Match</span>
+                    </div>
+                    {% if matching %}
+                    <div class="match-detail">
+                        <span class="match-detail-label">You have:</span>
+                        {% for ing in matching %}
+                        <span class="match-ing have">{{ ing }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if missing %}
+                    <div class="match-detail">
+                        <span class="match-detail-label">Missing:</span>
+                        {% for ing in missing %}
+                        <span class="match-ing missing">{{ ing }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Recipe Content -->
+        <div class="recipe-content">
+            <!-- Ingredients -->
+            <div class="recipe-ingredients">
+                <h2 class="content-title">Ingredients</h2>
+                <ul class="ingredient-list">
+                    {% for ingredient in recipe.ingredients %}
+                    <li class="ingredient-item">
+                        <span class="ingredient-check">✓</span>
+                        <span class="ingredient-text">{{ ingredient|title }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Instructions -->
+            <div class="recipe-instructions">
+                <h2 class="content-title">Instructions</h2>
+                <ol class="instruction-list">
+                    {% for step in recipe.instructions %}
+                    <li class="instruction-item">
+                        <span class="instruction-number">{{ loop.index }}</span>
+                        <p class="instruction-text">{{ step }}</p>
+                    </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="recipe-tags">
+            {% for tag in recipe.tags %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

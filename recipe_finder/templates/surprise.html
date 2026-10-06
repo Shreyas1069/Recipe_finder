@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Surprise Me - Recipe Finder{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-badge">Random Pick</span>
+        <h1 class="page-title">Your Surprise Recipe</h1>
+        <p class="page-subtitle">We randomly selected this recipe just for you</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="surprise-card">
+            <div class="surprise-image">
+                <img src="{{ recipe.image }}" alt="{{ recipe.name }}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=800&q=80'">
+                <span class="recipe-badge">{{ recipe.category }}</span>
+            </div>
+            <div class="surprise-content">
+                <h2 class="surprise-title">{{ recipe.name }}</h2>
+                <p class="surprise-desc">{{ recipe.description }}</p>
+                <div class="recipe-meta-bar">
+                    <div class="meta-box">
+                        <span class="meta-icon">⏱️</span>
+                        <span class="meta-value">{{ recipe.total_time }} min</span>
+                        <span class="meta-label">Total</span>
+                    </div>
+                    <div class="meta-box">
+                        <span class="meta-icon">📊</span>
+                        <span class="meta-value">{{ recipe.difficulty }}</span>
+                        <span class="meta-label">Level</span>
+                    </div>
+                    <div class="meta-box">
+                        <span class="meta-icon">🍽️</span>
+                        <span class="meta-value">{{ recipe.servings }}</span>
+                        <span class="meta-label">Servings</span>
+                    </div>
+                </div>
+                <div class="surprise-ingredients">
+                    <h3>Ingredients</h3>
+                    <div class="surprise-ingredient-tags">
+                        {% for ingredient in recipe.ingredients %}
+                        <span class="ingredient-chip">{{ ingredient|title }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="surprise-actions">
+                    <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}" class="btn btn-primary btn-lg">View Recipe</a>
+                    <a href="{{ url_for('surprise') }}" class="btn btn-outline btn-lg">🎲 Another One</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

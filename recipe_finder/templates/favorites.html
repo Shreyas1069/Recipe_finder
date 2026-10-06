@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Favorites - Recipe Finder{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-badge">Saved</span>
+        <h1 class="page-title">Your Favorites</h1>
+        <p class="page-subtitle">All your saved recipes in one place</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div id="favoritesContainer">
+            <div class="no-results" id="noFavorites">
+                <span class="no-results-icon">❤️</span>
+                <h2>No favorite recipes yet</h2>
+                <p>Save recipes you love and they'll appear here.</p>
+                <a href="{{ url_for('discover') }}" class="btn btn-primary">Discover Recipes</a>
+            </div>
+            <div class="recipe-grid" id="favoritesGrid" style="display: none;"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}

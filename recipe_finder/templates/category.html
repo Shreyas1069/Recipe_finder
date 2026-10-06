@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category_name }} - Recipe Finder{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-badge">Category</span>
+        <h1 class="page-title">{{ category_name }}</h1>
+        <p class="page-subtitle">{{ recipes|length }} recipe{{ 's' if recipes|length != 1 else '' }} in this category</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        {% if recipes %}
+        <div class="recipe-grid">
+            {% for recipe in recipes %}
+            <div class="recipe-card">
+                <div class="recipe-card-image">
+                    <img src="{{ recipe.image }}" alt="{{ recipe.name }}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=800&q=80'">
+                    <button class="favorite-btn" data-recipe-id="{{ recipe.id }}" aria-label="Add to favorites">
+                        <span class="heart">♡</span>
+                    </button>
+                    <span class="recipe-badge">{{ recipe.category }}</span>
+                </div>
+                <div class="recipe-card-body">
+                    <h3 class="recipe-card-title">{{ recipe.name }}</h3>
+                    <p class="recipe-card-desc">{{ recipe.description[:80] }}...</p>
+                    <div class="recipe-card-meta">
+                        <span class="meta-item">⏱️ {{ recipe.total_time }} min</span>
+                        <span class="meta-item">📊 {{ recipe.difficulty }}</span>
+                    </div>
+                    <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}" class="btn btn-primary btn-sm btn-block">View Recipe</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-results">
+            <span class="no-results-icon">📂</span>
+            <h2>No recipes in this category yet</h2>
+            <p>Check back soon for new recipes!</p>
+            <a href="{{ url_for('categories_page') }}" class="btn btn-primary">Browse Categories</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

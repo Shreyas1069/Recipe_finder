@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Pantry - Recipe Finder{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-badge">Pantry</span>
+        <h1 class="page-title">My Pantry</h1>
+        <p class="page-subtitle">Keep track of ingredients you have at home</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="pantry-layout">
+            <!-- Pantry Management -->
+            <div class="pantry-panel">
+                <div class="pantry-header">
+                    <h2>Your Pantry</h2>
+                    <span class="pantry-count" id="pantryCount">0 items</span>
+                </div>
+
+                <form id="pantryForm" class="pantry-form">
+                    <div class="ingredient-input-wrapper">
+                        <input type="text" id="pantryInput" class="ingredient-input" placeholder="Add an ingredient..." autocomplete="off">
+                        <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                    </div>
+                </form>
+
+                <div class="quick-add">
+                    <span class="quick-add-label">Quick add:</span>
+                    <div class="quick-add-tags">
+                        {% for ingredient in common_ingredients %}
+                        <button type="button" class="quick-tag" data-ingredient="{{ ingredient }}">{{ ingredient|title }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="pantry-tags" id="pantryTags">
+                    <p class="pantry-empty" id="pantryEmpty">Your pantry is empty. Add some ingredients!</p>
+                </div>
+
+                <div class="pantry-actions">
+                    <button type="button" class="btn btn-outline btn-sm" id="clearPantry">Clear Pantry</button>
+                    <form action="{{ url_for('search') }}" method="GET" style="display: inline;">
+                        <input type="hidden" name="ingredients" id="pantrySearchInput" value="">
+                        <button type="submit" class="btn btn-primary btn-sm" id="pantrySearchBtn">Find Recipes</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Pantry Tips -->
+            <div class="pantry-tips">
+                <h3>Pantry Tips</h3>
+                <div class="tips-list">
+                    <div class="tip-item">
+                        <span class="tip-icon">💡</span>
+                        <p>Add ingredients you use regularly for quick access.</p>
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🔍</span>
+                        <p>Click "Find Recipes" to search with your pantry ingredients.</p>
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">📱</span>
+                        <p>Your pantry is saved in your browser, so it persists between visits.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

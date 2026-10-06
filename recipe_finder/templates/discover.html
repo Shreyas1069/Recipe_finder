@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}Discover - Recipe Finder{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-badge">Discover</span>
+        <h1 class="page-title">Explore Recipes</h1>
+        <p class="page-subtitle">Find your next favorite meal from our curated collections</p>
+    </div>
+</section>
+
+<!-- Popular Recipes -->
+<section class="section">
+    <div class="container">
+        <div class="section-header-row">
+            <h2 class="section-title-sm">Popular Recipes</h2>
+        </div>
+        <div class="recipe-grid">
+            {% for recipe in popular %}
+            <div class="recipe-card">
+                <div class="recipe-card-image">
+                    <img src="{{ recipe.image }}" alt="{{ recipe.name }}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=800&q=80'">
+                    <button class="favorite-btn" data-recipe-id="{{ recipe.id }}" aria-label="Add to favorites">
+                        <span class="heart">♡</span>
+                    </button>
+                    <span class="recipe-badge">{{ recipe.category }}</span>
+                </div>
+                <div class="recipe-card-body">
+                    <h3 class="recipe-card-title">{{ recipe.name }}</h3>
+                    <p class="recipe-card-desc">{{ recipe.description[:80] }}...</p>
+                    <div class="recipe-card-meta">
+                        <span class="meta-item">⏱️ {{ recipe.total_time }} min</span>
+                        <span class="meta-item">📊 {{ recipe.difficulty }}</span>
+                    </div>
+                    <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}" class="btn btn-primary btn-sm btn-block">View Recipe</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Quick Recipes -->
+<section class="section">
+    <div class="container">
+        <div class="section-header-row">
+            <h2 class="section-title-sm">Quick Meals</h2>
+            <span class="section-note">Ready in 15 minutes or less</span>
+        </div>
+        <div class="recipe-grid">
+            {% for recipe in quick %}
+            <div class="recipe-card">
+                <div class="recipe-card-image">
+                    <img src="{{ recipe.image }}" alt="{{ recipe.name }}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=800&q=80'">
+                    <button class="favorite-btn" data-recipe-id="{{ recipe.id }}" aria-label="Add to favorites">
+                        <span class="heart">♡</span>
+                    </button>
+                    <span class="recipe-badge">{{ recipe.category }}</span>
+                </div>
+                <div class="recipe-card-body">
+                    <h3 class="recipe-card-title">{{ recipe.name }}</h3>
+                    <p class="recipe-card-desc">{{ recipe.description[:80] }}...</p>
+                    <div class="recipe-card-meta">
+                        <span class="meta-item">⏱️ {{ recipe.total_time }} min</span>
+                        <span class="meta-item">📊 {{ recipe.difficulty }}</span>
+                    </div>
+                    <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}" class="btn btn-primary btn-sm btn-block">View Recipe</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Vegetarian Recipes -->
+<section class="section">
+    <div class="container">
+        <div class="section-header-row">
+            <h2 class="section-title-sm">Vegetarian Favorites</h2>
+        </div>
+        <div class="recipe-grid">
+            {% for recipe in vegetarian %}
+            <div class="recipe-card">
+                <div class="recipe-card-image">
+                    <img src="{{ recipe.image }}" alt="{{ recipe.name }}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=800&q=80'">
+                    <button class="favorite-btn" data-recipe-id="{{ recipe.id }}" aria-label="Add to favorites">
+                        <span class="heart">♡</span>
+                    </button>
+                    <span class="recipe-badge">{{ recipe.category }}</span>
+                </div>
+                <div class="recipe-card-body">
+                    <h3 class="recipe-card-title">{{ recipe.name }}</h3>
+                    <p class="recipe-card-desc">{{ recipe.description[:80] }}...</p>
+                    <div class="recipe-card-meta">
+                        <span class="meta-item">⏱️ {{ recipe.total_time }} min</span>
+                        <span class="meta-item">📊 {{ recipe.difficulty }}</span>
+                    </div>
+                    <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}" class="btn btn-primary btn-sm btn-block">View Recipe</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Recently Added -->
+<section class="section">
+    <div class="container">
+        <div class="section-header-row">
+            <h2 class="section-title-sm">Recently Added</h2>
+        </div>
+        <div class="recipe-grid">
+            {% for recipe in recent %}
+            <div class="recipe-card">
+                <div class="recipe-card-image">
+                    <img src="{{ recipe.image }}" alt="{{ recipe.name }}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=800&q=80'">
+                    <button class="favorite-btn" data-recipe-id="{{ recipe.id }}" aria-label="Add to favorites">
+                        <span class="heart">♡</span>
+                    </button>
+                    <span class="recipe-badge">{{ recipe.category }}</span>
+                </div>
+                <div class="recipe-card-body">
+                    <h3 class="recipe-card-title">{{ recipe.name }}</h3>
+                    <p class="recipe-card-desc">{{ recipe.description[:80] }}...</p>
+                    <div class="recipe-card-meta">
+                        <span class="meta-item">⏱️ {{ recipe.total_time }} min</span>
+                        <span class="meta-item">📊 {{ recipe.difficulty }}</span>
+                    </div>
+                    <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}" class="btn btn-primary btn-sm btn-block">View Recipe</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
