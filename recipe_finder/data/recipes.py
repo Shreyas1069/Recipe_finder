@@ -103,7 +103,7 @@ recipes = [
         "total_time": 10,
         "difficulty": "Easy",
         "servings": 2,
-        "image": "https://images.unsplash.com/photo-1488900128323-21503983a07e?w=800&q=80",
+        "image": "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=800&q=80",
         "tags": ["vegetarian", "quick", "healthy"]
     },
     {
